@@ -1,0 +1,20 @@
+$chatFieldH: 90%;
+$messageFieldH: 10%;
+.chatField {
+  position: relative;
+  height: $chatFieldH;
+  max-height: $chatFieldH;
+  border: 2px solid black;
+}
+
+.messageField {
+  position: relative;
+  height: $messageFieldH;
+  max-height: $messageFieldH;
+  //
+  .messageInputBox {
+    position: absolute;
+
+    width: 100%;
+  }
+}

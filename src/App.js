@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//custom components
+import Chat from "./Components/Chat";
+import Auth from "./Components/Auth";
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoggedIn: false,
+    };
+  }
+  render() {
+    let content = "";
+    if (this.state.isLoggedIn) content = <Chat />;
+    else content = <Auth />;
+    return <React.Fragment>{content}</React.Fragment>;
+  }
 }
-
-export default App;

@@ -1,0 +1,17 @@
+.formControlMessage {
+  border: 1px solid black;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.253);
+  }
+}
+.sendMessageButton {
+  cursor: pointer;
+
+  span {
+    &:hover {
+      background-color: #7f8fa66e;
+    }
+  }
+}

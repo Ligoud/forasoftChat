@@ -1,0 +1,44 @@
+@import "./extends";
+
+// .channels {
+//   height: 100%;
+// }
+
+.chatRoom {
+  cursor: pointer;
+  transition: 0.5s;
+
+  //   border-top: 1px solid black;
+  //   border-bottom: 1px solid black;
+  background-color: #dcdde14f;
+  &:hover {
+    background-color: #dcdde1;
+  }
+  min-height: 10%;
+  display: flex;
+  text-align: center;
+  align-content: center;
+  overflow: hidden;
+}
+.createRoom {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  text-align: center;
+  font-weight: 600;
+
+  .card-header {
+    transition: 0.25s;
+    &:hover {
+      background-color: #44bd3265;
+    }
+  }
+}
+.lineBorder {
+  height: 20px;
+  background-color: rgba(0, 0, 0, 0.616); //#353b48a6;
+}
+#channelWrapper {
+  height: 100%;
+  width: 100%;
+}
