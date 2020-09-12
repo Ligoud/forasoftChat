@@ -44,10 +44,14 @@ export default class AuthForm extends React.Component {
   }
   componentDidMount() {
     OwnSocket.socket.on("authorize", (data) => {
-      console.log(data);
+      // let { username, userid } = { ...data }
+
       let isLoginResponce = data.type === "login" ? true : false;
       // userid is actual id for logged in user
       if (isLoginResponce && data.userid) {
+        delete data.type;
+        OwnSocket.socket.id = data.userid;
+        this.props.setCredentials(data);
       }
       //user failed log in
       else if (isLoginResponce) {
@@ -55,6 +59,9 @@ export default class AuthForm extends React.Component {
       }
       //userid is actual id for new user
       else if (data.userid) {
+        delete data.type;
+        OwnSocket.socket.id = data.userid;
+        this.props.setCredentials(data);
       }
       //user failed register due to existing account
       else {

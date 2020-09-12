@@ -1,10 +1,40 @@
-$chatFieldH: 90%;
+$channelInfoH: 5%;
+$chatFieldH: 85%;
+$chatFieldTopMargin: 2%;
 $messageFieldH: 10%;
+
+.channelInfo {
+  position: relative;
+  height: $channelInfoH;
+  max-height: $channelInfoH;
+  border: 1px solid black;
+  .row {
+    height: 100%;
+    & > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .link {
+        cursor: pointer;
+        user-select: none;
+        // margin-top: auto;
+      }
+    }
+  }
+  .badge {
+    transition: 0.3s;
+    &:hover {
+      background-color: #273c75d5; //#2f3640;
+    }
+  }
+}
 .chatField {
   position: relative;
-  height: $chatFieldH;
-  max-height: $chatFieldH;
+  height: calc(#{$chatFieldH} - #{$chatFieldTopMargin});
+  max-height: calc(#{$chatFieldH} - #{$chatFieldTopMargin});
   border: 2px solid black;
+  margin-top: $chatFieldTopMargin;
+  overflow: scroll;
 }
 
 .messageField {
@@ -16,5 +46,12 @@ $messageFieldH: 10%;
     position: absolute;
 
     width: 100%;
+  }
+}
+
+.toast-header {
+  cursor: default;
+  button {
+    display: none;
   }
 }

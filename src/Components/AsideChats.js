@@ -15,33 +15,50 @@ import CustomInput from "./Input";
 export default class AsideChat extends React.Component {
   constructor(props) {
     super(props);
+    //bind context
     this.addChannel = this.addChannel.bind(this);
-    // this.channelList = React.createRef();
+    this.clickOnChannel = this.clickOnChannel.bind(this);
+    //
     this.state = {
       channelList: [],
     };
   }
-  onEnterInputHandler(channelName) {
+  createNewChannel(channelName) {
     //
-    OwnSocket.socket.emit("addChannel", { channelName: channelName });
+    OwnSocket.emitAddNewChannel(channelName);
   }
-  addChannel(channelName) {
+  connectToChannel(channelid) {
+    //connect to new channel
+    // OwnSocket.socket.emit('')
+  }
+  addChannel(channelData) {
     this.setState((prev) => ({
       channelList: [
         ...prev.channelList,
-        <Row className="chatRoom">
+        <Row
+          className="chatRoom"
+          data-channelid={channelData.channelId}
+          data-channelname={channelData.channelName}
+          key={channelData.channelId}
+          onClick={this.clickOnChannel}
+        >
           <Col md={12}>
-            <span>{channelName}</span>
+            <span>{channelData.channelName}</span>
           </Col>
         </Row>,
       ],
     }));
   }
+  clickOnChannel(event) {
+    this.props.changeChat(
+      event.currentTarget.getAttribute("data-channelid"),
+      event.currentTarget.getAttribute("data-channelname")
+    );
+  }
   componentDidMount() {
-    OwnSocket.socket.on("newChannel", (data) => {
-      console.log("received new cnahnel", data);
-      this.addChannel(data);
-    });
+    OwnSocket.newChannelListener(this.addChannel);
+    OwnSocket.loadChannelsListener(this.addChannel);
+    OwnSocket.emitReadyToLoadChannelsState();
   }
   render() {
     return (
@@ -58,7 +75,7 @@ export default class AsideChat extends React.Component {
                     <CustomInput
                       inputPlaceHolder="Channel name"
                       buttonName="Create"
-                      enterHandler={this.onEnterInputHandler}
+                      enterHandler={this.createNewChannel}
                     />
                   </Card.Body>
                 </Accordion.Collapse>
@@ -66,12 +83,30 @@ export default class AsideChat extends React.Component {
             </Accordion>
           </Col>
         </Row>
-        {/* <div className="channels"> */}
+        <Row className="connectToRoom">
+          <Col md={12} className="px-0 mb-0">
+            <Accordion>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="0">
+                  Connect to chat room
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>
+                    <CustomInput
+                      inputPlaceHolder="Channel link"
+                      buttonName="Connect"
+                      enterHandler={this.connectToChannel}
+                    />
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+          </Col>
+        </Row>
         <Row className="lineBorder">
           <Col md={12}></Col>
         </Row>
         {this.state.channelList}
-        {/* </div> */}
       </div>
     );
   }
