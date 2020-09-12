@@ -9,18 +9,67 @@ const myDb = new liteDb();
 
 //case: connecting to the chat
 server.on("connect", (socket) => {
-  // console.log("socket connected");
+  //
   //case: receiving new message from user
   socket.on("message", (data) => {
-    console.log(`[${socket.id}]: ${data.msg}`);
-    socket.broadcast.emit("message", { from: socket.id, ...data });
+    //! add broadcast to room (not to all channels)
+    myDb.addRow(
+      "messages",
+      socket.id,
+      socket.username,
+      data.channelId,
+      data.datetime,
+      data.message
+    );
+    //isme - flag for client for positioning message
+    let resultObj = {
+      from: { username: socket.username, userid: socket.id },
+      isMe: false, //by default it is false. will be changed on client side
+      ...data,
+    };
+    //send to all users.
+    //! problem: broadcast not working properly (sends even to sender first time)
+    socket.broadcast.emit("broadcast message", resultObj);
+  });
+  //case: load message history to user client
+  socket.on("load messages", async (data) => {
+    let messages = await myDb.getChannelMessages(data.channelid);
+    messages = messages.map((el) => {
+      return {
+        from: { username: el.username, userid: el.userid },
+        isMe: false,
+        ...el,
+      };
+    });
+    socket.emit("load messages", messages);
   });
   //case: creating new channel
   socket.on("addChannel", (data) => {
-    socket.emit("newChannel", data.channelName);
+    let channelid = myDb.addChannel(data.channelName, socket.id);
+    socket.emit("newChannel", {
+      channelName: data.channelName,
+      channelId: channelid,
+    });
   });
-  //
-
+  //case: loading channel for logged in user
+  socket.on("readyToLoadChannels", async () => {
+    let res = (await myDb.getAvailableChannels(socket.id)).map((el) => ({
+      channelName: el.channelname,
+      channelId: el.channelid,
+    }));
+    socket.emit("loadChannels", res);
+  });
+  //case: connect to channel
+  socket.on("connect to channel", (data) => {
+    //add new user in channels table,
+    // let channelid = myDb.addChannel(data.channelName, socket.id);
+    // socket.emit("newChannel", {
+    //   channelName: data.channelName,
+    //   channelId: channelid,
+    // });
+    //join this user to new Room
+  });
+  //helper function
   function setCredentialsToSocket(socket, uuid, username) {
     if (uuid) {
       socket.id = uuid;
@@ -31,7 +80,6 @@ server.on("connect", (socket) => {
   socket.on("login", async (data) => {
     let uuid = await myDb.getLoggedInUserid(data.username, data.password);
     setCredentialsToSocket(socket, uuid, data.username);
-    console.log(socket.id, socket.username);
     socket.emit("authorize", {
       userid: uuid,
       username: data.username,
@@ -42,7 +90,9 @@ server.on("connect", (socket) => {
   socket.on("register", async (data) => {
     let uuid = await myDb.registerNewUser(data.username, data.password);
     setCredentialsToSocket(socket, uuid, data.username);
-    console.log(socket.id, socket.username);
+    //add general chat after register
+    myDb.addChannel("General Chat", socket.id, "generalchatid");
+
     socket.emit("authorize", {
       userid: uuid,
       username: data.username,
