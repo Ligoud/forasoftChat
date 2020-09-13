@@ -31,19 +31,19 @@ export default class Chat extends React.Component {
     return (
       <Container fluid className="h-100">
         <Row className="main">
-          <Col md={3} className="aside hideScrollBar">
+          <Col sm={3} className="aside hideScrollBar">
             <AsideChat
               credentials={this.props.credentials}
               changeChat={this.chooseChatChannel}
             />
           </Col>
-          <Col md={6} className="middlePanel mx-1">
+          <Col sm={6} className="middlePanel mx-1">
             <ChatBody
               credentials={this.props.credentials}
               currentChat={this.state.currentChat}
             />
           </Col>
-          <Col md={2}>
+          <Col sm={2}>
             <UsersPanel
               chatid={this.state.currentChat.chatid}
               key={this.state.currentChat.chatid}

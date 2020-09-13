@@ -2,26 +2,24 @@ import io from "socket.io-client";
 var socket = io(process.env.REACT_APP_SERVER_URI);
 // *  singleton like. (to prevent multiconnections to server from the components)
 export default class OwnSocket {
-  static testListener() {
-    socket.on("messagetest", (data) => {
-      console.log("test data", data);
-    });
-  }
   //
   //Auth control
   //
+  //register user
   static registerUser(username, password) {
     socket.emit("register", {
       username: username,
       password: password,
     });
   }
+  //login user
   static loginUser(username, password) {
     socket.emit("login", {
       username: username,
       password: password,
     });
   }
+  //receive resultat of auth
   static authListener(setCredentials) {
     socket.on("authorize", (data) => {
       // let { username, userid } = { ...data }
@@ -146,4 +144,7 @@ export default class OwnSocket {
       updateActivityStateInPanel(data);
     });
   }
+  //
+  //
+  //
 }

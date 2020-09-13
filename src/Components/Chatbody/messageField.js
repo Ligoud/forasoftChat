@@ -17,10 +17,12 @@ export default class MessageField extends React.Component {
     //add message card only if proper channel selected
     if (this.props.chatId == message.channelid) {
       //offset  message
-      let messagepos = { span: 6, offset: 0 };
+      let messageposLg = { span: 6, offset: 0 };
+      let messageposDefault = { span: 8, offset: 0 };
       //if message from me
       if (message.isMe) {
-        messagepos.offset = 6;
+        messageposLg.offset = 6;
+        messageposDefault.offset = 4;
       }
       let datetime = new Date(message.datetime);
       let time = `${datetime.getHours()}:${datetime.getMinutes()}`;
@@ -32,7 +34,8 @@ export default class MessageField extends React.Component {
           ...prev.messageList,
           <Row key={message.datetime + message.message} className="my-2">
             <Col
-              md={messagepos}
+              lg={messageposLg}
+              xs={messageposDefault}
               className="messageRow w-100 d-flex justify-content-center"
             >
               <Toast style={{ minWidth: "250px" }}>
