@@ -7,10 +7,13 @@ export default class MessageField extends React.Component {
     super(props);
     //
     this.addMessage = this.addMessage.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
     //
     this.state = {
       messageList: [],
     };
+    //
+    this.messageField = React.createRef();
   }
   //message is object {channelId,from,datetime,message}
   addMessage(message) {
@@ -52,16 +55,27 @@ export default class MessageField extends React.Component {
     }
   }
 
+  scrollToBottom() {
+    this.messageField.current.scrollTo(
+      0,
+      this.messageField.current.scrollHeight
+    );
+  }
   componentDidMount() {
     OwnSocket.receiveMessage(this.addMessage);
     OwnSocket.emitLoadMessages(this.props.chatId);
     OwnSocket.loadMessagesListener(this.addMessage);
-    OwnSocket.testListener();
+    //scroll messagefield
+    this.scrollToBottom();
   }
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
   render() {
     return (
       <React.Fragment>
-        <Row className="chatField hideScrollBar py-5">
+        <Row className="chatField hideScrollBar py-5" ref={this.messageField}>
           <Col md={12}>{this.state.messageList}</Col>
         </Row>
       </React.Fragment>

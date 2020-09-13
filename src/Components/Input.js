@@ -28,6 +28,7 @@ export default class CustomInput extends React.Component {
       if (this.state.message.length > 0) {
         this.props.enterHandler(this.state.message);
         event.target.value = "";
+        this.setState({ message: "" }); //update state
       }
     }
   }
