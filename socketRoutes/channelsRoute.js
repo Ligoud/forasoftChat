@@ -64,14 +64,18 @@ class ChannelsRoute extends Route {
       data.channelid,
       socket.customid
     );
-    //join current user to new Room
-    socket.join(data.channelid);
-    this.server.to(data.channelid).emit("fullUpdatePanel");
-    //send info about new channel to user
-    socket.emit("newChannel", {
-      channelName: channelName,
-      channelId: data.channelid,
-    });
+    if (channelName) {
+      //join current user to new Room
+      socket.join(data.channelid);
+      this.server.to(data.channelid).emit("fullUpdatePanel");
+      //send info about new channel to user
+      socket.emit("newChannel", {
+        channelName: channelName,
+        channelId: data.channelid,
+      });
+    } else {
+      socket.emit("nosuchchannel", { channelid: data.channelid });
+    }
   }
 }
 

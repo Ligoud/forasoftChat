@@ -112,13 +112,15 @@ class liteDb {
           if (err) {
             console.log(err);
           } else {
-            res(row.channelname);
+            if (row) res(row.channelname);
+            else res(undefined);
           }
         }
       );
     });
     let channelName = await prom;
-    this.addRow("channels", connectedUserId, channelid, channelName);
+    if (channelName)
+      await this.addRow("channels", connectedUserId, channelid, channelName);
     return channelName;
   }
   //get all available for user channels
