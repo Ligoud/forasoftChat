@@ -2,6 +2,8 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 //
 import OwnSocket from "../logic/socket";
+//
+import "../scss/userPanel.scss";
 
 export default class UsersPanel extends React.Component {
   constructor(props) {
@@ -62,16 +64,19 @@ export default class UsersPanel extends React.Component {
     return (
       <React.Fragment>
         <Row>
-          <Col md={12} className="panelHeader">
+          <Col xs={12} className="panelHeader">
             <span>
               <h4>Users on channel</h4>
             </span>
           </Col>
         </Row>
         <Row className="usersPanel">
-          <Col md={12}>
+          <Col xs={12}>
             <ul className="list-group ">{renderList}</ul>
           </Col>
+        </Row>
+        <Row className="streamPanel">
+          <Col xs={12}></Col>
         </Row>
       </React.Fragment>
     );

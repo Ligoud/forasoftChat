@@ -1,0 +1,21 @@
+.panelHeader {
+  display: flex;
+  text-align: center;
+  align-content: center;
+  margin-top: 20%;
+}
+.usersPanel {
+  height: 70%;
+  & > div {
+    margin-top: 5%; //calc(#{$channelInfoH} + #{$chatFieldTopMargin});
+  }
+  li {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+.streamPanel {
+  height: 15%;
+  //   border: 1px solid black;
+}

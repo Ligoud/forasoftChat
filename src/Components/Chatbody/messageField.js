@@ -21,11 +21,11 @@ export default class MessageField extends React.Component {
     if (this.props.chatId == message.channelid) {
       //offset  message
       let messageposLg = { span: 6, offset: 0 };
-      let messageposDefault = { span: 8, offset: 0 };
+      let messageposDefault = { span: 10, offset: 0 };
       //if message from me
       if (message.isMe) {
         messageposLg.offset = 6;
-        messageposDefault.offset = 4;
+        messageposDefault.offset = 2;
       }
       let datetime = new Date(message.datetime);
       let time = `${datetime.getHours()}:${datetime.getMinutes()}`;

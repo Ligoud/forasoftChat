@@ -12,16 +12,16 @@ export default class ChatHeader extends React.Component {
     return (
       <React.Fragment>
         <Row className="channelInfo">
-          <Col md={12}>
+          <Col xs={12}>
             <Row>
-              <Col md={9}>
+              <Col lg={9} xs={7}>
                 <div>
                   <h4>
                     <span>{this.props.currentChat.chatname}</span>
                   </h4>
                 </div>
               </Col>
-              <Col md={3}>
+              <Col lg={3} xs={5}>
                 <div
                   className="link"
                   data-channelid={this.props.currentChat.chatid}
