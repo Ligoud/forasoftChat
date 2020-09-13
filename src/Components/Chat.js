@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 //
 import ChatBody from "./ChatBody";
 import AsideChat from "./AsideChats";
+import UsersPanel from "./chatUsersPanel";
 //
 export default class Chat extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ export default class Chat extends React.Component {
       currentChat: { chatid: "generalchatid", chatname: "General Chat" },
     };
   }
+  //chnages current chat global state
   chooseChatChannel(channelId, channelName) {
     // console.log("changing chat");
     this.setState({
@@ -35,10 +37,16 @@ export default class Chat extends React.Component {
               changeChat={this.chooseChatChannel}
             />
           </Col>
-          <Col md={6} className="mx-1">
+          <Col md={6} className="middlePanel mx-1">
             <ChatBody
               credentials={this.props.credentials}
               currentChat={this.state.currentChat}
+            />
+          </Col>
+          <Col md={2}>
+            <UsersPanel
+              chatid={this.state.currentChat.chatid}
+              key={this.state.currentChat.chatid}
             />
           </Col>
         </Row>

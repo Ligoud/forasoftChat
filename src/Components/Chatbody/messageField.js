@@ -14,6 +14,7 @@ export default class MessageField extends React.Component {
   }
   //message is object {channelId,from,datetime,message}
   addMessage(message) {
+    //add message card only if proper channel selected
     if (this.props.chatId == message.channelid) {
       //offset  message
       let messagepos = { span: 6, offset: 0 };
@@ -30,8 +31,11 @@ export default class MessageField extends React.Component {
         messageList: [
           ...prev.messageList,
           <Row key={message.datetime + message.message} className="my-2">
-            <Col md={messagepos} className="messageRow w-100">
-              <Toast>
+            <Col
+              md={messagepos}
+              className="messageRow w-100 d-flex justify-content-center"
+            >
+              <Toast style={{ minWidth: "250px" }}>
                 <Toast.Header title={message.from.username}>
                   <strong className="mr-auto">{message.from.username}</strong>
                   <small title={shortDateTime}>{time}</small>
@@ -49,11 +53,12 @@ export default class MessageField extends React.Component {
     OwnSocket.receiveMessage(this.addMessage);
     OwnSocket.emitLoadMessages(this.props.chatId);
     OwnSocket.loadMessagesListener(this.addMessage);
+    OwnSocket.testListener();
   }
   render() {
     return (
       <React.Fragment>
-        <Row className="chatField hideScrollBar">
+        <Row className="chatField hideScrollBar py-5">
           <Col md={12}>{this.state.messageList}</Col>
         </Row>
       </React.Fragment>

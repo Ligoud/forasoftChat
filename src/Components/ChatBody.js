@@ -23,7 +23,10 @@ class ChatBody extends React.Component {
     return (
       <React.Fragment>
         <ChatHeader currentChat={this.props.currentChat} />
-        <MessageField chatId={this.props.currentChat.chatid} />
+        <MessageField
+          chatId={this.props.currentChat.chatid}
+          key={this.props.currentChat.chatid}
+        />
         <ChatBottom chatId={this.props.currentChat.chatid} />
       </React.Fragment>
     );

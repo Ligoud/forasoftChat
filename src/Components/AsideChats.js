@@ -28,8 +28,7 @@ export default class AsideChat extends React.Component {
     OwnSocket.emitAddNewChannel(channelName);
   }
   connectToChannel(channelid) {
-    //connect to new channel
-    // OwnSocket.socket.emit('')
+    OwnSocket.emitConnectToChannel(channelid);
   }
   addChannel(channelData) {
     this.setState((prev) => ({

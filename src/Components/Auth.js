@@ -28,46 +28,16 @@ export default class AuthForm extends React.Component {
   //claim credentials and send to server
   register() {
     if (this.state.userName && this.state.password)
-      OwnSocket.socket.emit("register", {
-        username: this.state.userName,
-        password: this.state.password,
-      });
+      OwnSocket.registerUser(this.state.userName, this.state.password);
     else console.log("not authed");
   }
   login() {
     if (this.state.userName && this.state.password)
-      OwnSocket.socket.emit("login", {
-        username: this.state.userName,
-        password: this.state.password,
-      });
+      OwnSocket.loginUser(this.state.userName, this.state.password);
     else console.log("not authed");
   }
   componentDidMount() {
-    OwnSocket.socket.on("authorize", (data) => {
-      // let { username, userid } = { ...data }
-
-      let isLoginResponce = data.type === "login" ? true : false;
-      // userid is actual id for logged in user
-      if (isLoginResponce && data.userid) {
-        delete data.type;
-        OwnSocket.socket.id = data.userid;
-        this.props.setCredentials(data);
-      }
-      //user failed log in
-      else if (isLoginResponce) {
-        alert("Wrong credentials. Try again.");
-      }
-      //userid is actual id for new user
-      else if (data.userid) {
-        delete data.type;
-        OwnSocket.socket.id = data.userid;
-        this.props.setCredentials(data);
-      }
-      //user failed register due to existing account
-      else {
-        alert("This account already exist");
-      }
-    });
+    OwnSocket.authListener(this.props.setCredentials);
   }
   render() {
     return (
