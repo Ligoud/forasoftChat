@@ -55,6 +55,7 @@ export default class AsideChat extends React.Component {
     );
   }
   componentDidMount() {
+    OwnSocket.forceNoSuchChannelAlert();
     OwnSocket.newChannelListener(this.addChannel);
     OwnSocket.loadChannelsListener(this.addChannel);
     OwnSocket.emitReadyToLoadChannelsState();

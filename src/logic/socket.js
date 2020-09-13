@@ -56,6 +56,12 @@ export default class OwnSocket {
   //
   //channels control
   //
+  //no such channel
+  static forceNoSuchChannelAlert() {
+    socket.on("nosuchchannel", (data) => {
+      alert("No such channel: " + data.channelid);
+    });
+  }
   //trigger whenever new chat is added
   static newChannelListener(addChannel) {
     socket.on("newChannel", (data) => {

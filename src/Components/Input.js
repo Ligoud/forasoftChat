@@ -26,7 +26,7 @@ export default class CustomInput extends React.Component {
     if (event.keyCode == 13) {
       event.preventDefault();
       if (this.state.message.length > 0) {
-        this.props.enterHandler(this.state.message);
+        this.props.enterHandler(this.state.message.trim());
         event.target.value = "";
         this.setState({ message: "" }); //update state
       }
