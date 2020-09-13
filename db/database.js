@@ -40,26 +40,28 @@ class liteDb {
   }
   //adding row in current table
   // * args might be in right sequence (like it described in createTables function)
-  addRow(table, ...args) {
+  async addRow(table, ...args) {
     //add double quotes for arguments
     let values = args.map((val) => `"${val}"`).join(",");
     //adding row in db
     // * wrapped in serialize in case if i will add something like responce etc.
-    this.db.serialize(() => {
-      this.db.run(
-        util.format("insert into %s values ( %s )", table, values),
-        (err) => {
-          if (err) console.log(err);
-          // console.log("no misstakes in here");
-        }
-      );
+    let prom = new Promise((res, rej) => {
+      this.db.serialize(() => {
+        this.db.run(
+          util.format("insert into %s values ( %s )", table, values),
+          (err) => {
+            if (err) console.log(err);
+            res();
+          }
+        );
+      });
     });
+    await prom;
   }
   async getAllRows(table) {
     let promise = new Promise((resolve, reject) => {
       this.db.all(util.format("select * from %s", table), (err, rows) => {
         if (err) console.log(err);
-        console.log(rows);
         resolve(rows);
       });
     });
@@ -94,9 +96,9 @@ class liteDb {
     }
   }
   //add new channel. Returns id of this channel
-  addChannel(channelName, connectedUserId, defaultChannelId = "") {
+  async addChannel(channelName, connectedUserId, defaultChannelId = "") {
     let channelid = defaultChannelId ? defaultChannelId : uuidv4();
-    this.addRow("channels", connectedUserId, channelid, channelName);
+    await this.addRow("channels", connectedUserId, channelid, channelName);
     return channelid;
   }
   // adds user to exists channel. Returns channelname
@@ -110,7 +112,6 @@ class liteDb {
           if (err) {
             console.log(err);
           } else {
-            console.log("channelname is ", row.channelname);
             res(row.channelname);
           }
         }
@@ -177,7 +178,3 @@ class liteDb {
   }
 }
 module.exports.liteDb = liteDb;
-
-// let db = new liteDb();
-// console.log(db.getAllRows("users"));
-// db.closeDb();
