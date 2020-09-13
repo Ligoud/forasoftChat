@@ -99,6 +99,27 @@ class liteDb {
     this.addRow("channels", connectedUserId, channelid, channelName);
     return channelid;
   }
+  // adds user to exists channel. Returns channelname
+  async addUserToChannel(channelid, connectedUserId) {
+    //read channelname by the channelid
+    let prom = new Promise((res, rej) => {
+      this.db.get(
+        "select * from channels where channelid = ?",
+        [channelid],
+        (err, row) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("channelname is ", row.channelname);
+            res(row.channelname);
+          }
+        }
+      );
+    });
+    let channelName = await prom;
+    this.addRow("channels", connectedUserId, channelid, channelName);
+    return channelName;
+  }
   //get all available for user channels
   async getAvailableChannels(userid) {
     let promise = new Promise((resolve, reject) => {
@@ -106,26 +127,45 @@ class liteDb {
         "select * from channels where userid = ?",
         [userid],
         (err, rows) => {
-          if (err) console.log(err);
-          else {
-            resolve(rows);
-          }
+          resolve(rows);
         }
       );
     });
     return await promise;
   }
-
+  //get all messages for current channel
   async getChannelMessages(channelid) {
     let promise = new Promise((resolve, reject) => {
       this.db.all(
         "select * from messages where channelid = ?",
         [channelid],
         (err, rows) => {
-          if (err) console.log(err);
-          else {
-            resolve(rows);
-          }
+          resolve(rows);
+        }
+      );
+    });
+    return await promise;
+  }
+  //get all users for current channel
+  async getUsersOnChannel(channelid) {
+    let promise = new Promise((resolve, reject) => {
+      this.db.all(
+        "select * from channels where channelid = ?",
+        [channelid],
+        (err, rows) => {
+          resolve(rows);
+        }
+      );
+    });
+    return await promise;
+  }
+  async getUserName(userid) {
+    let promise = new Promise((resolve, reject) => {
+      this.db.get(
+        "select username from users where userid = ?",
+        [userid],
+        (err, row) => {
+          resolve(row.username);
         }
       );
     });
