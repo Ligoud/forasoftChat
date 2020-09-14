@@ -140,6 +140,7 @@ export default class OwnSocket {
   //waits for signal from server to update userlist. (without db acces on server)
   static needUpdateListener(channelid) {
     socket.on("updatePanel", () => {
+      console.log("forced to update panel");
       socket.emit("updateActiveUsers", { channelid: channelid });
     });
   }
