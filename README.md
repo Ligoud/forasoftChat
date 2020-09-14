@@ -1,3 +1,3 @@
 # Client side 
 
-ForaSoft test task
+[Доступ к чату](https://ligoud.github.io/forasoftChat/)
