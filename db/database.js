@@ -91,7 +91,7 @@ class liteDb {
       return null;
     } else {
       let uuid = uuidv4();
-      this.addRow("users", uuid, username, password);
+      await this.addRow("users", uuid, username, password);
       return uuid;
     }
   }

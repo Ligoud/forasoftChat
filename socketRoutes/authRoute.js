@@ -16,8 +16,8 @@ class AuthRoute extends Route {
         socket.join(el.channelid);
       }
     );
-    //case: client need to update info about users activity
-    socket.broadcast.emit("updatePanel");
+    //case: client need to update info about users
+    socket.broadcast.emit("fullUpdatePanel");
   }
 
   async onLogin(data, socket) {
