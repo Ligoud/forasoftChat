@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/forasoftChat/precache-manifest.de7b70dae222330b77c9eb4ec2bd2191.js"
+  "/forasoftChat/precache-manifest.f9e095758dc33316fd6fa9165945440e.js"
 );
 
 self.addEventListener('message', (event) => {

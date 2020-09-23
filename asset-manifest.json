@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/forasoftChat/static/css/main.6834936d.chunk.css",
-    "main.js": "/forasoftChat/static/js/main.e227f6c3.chunk.js",
-    "main.js.map": "/forasoftChat/static/js/main.e227f6c3.chunk.js.map",
+    "main.js": "/forasoftChat/static/js/main.a18fa900.chunk.js",
+    "main.js.map": "/forasoftChat/static/js/main.a18fa900.chunk.js.map",
     "runtime-main.js": "/forasoftChat/static/js/runtime-main.fbbebdb5.js",
     "runtime-main.js.map": "/forasoftChat/static/js/runtime-main.fbbebdb5.js.map",
-    "static/js/2.55b6e3ee.chunk.js": "/forasoftChat/static/js/2.55b6e3ee.chunk.js",
-    "static/js/2.55b6e3ee.chunk.js.map": "/forasoftChat/static/js/2.55b6e3ee.chunk.js.map",
+    "static/js/2.311df99b.chunk.js": "/forasoftChat/static/js/2.311df99b.chunk.js",
+    "static/js/2.311df99b.chunk.js.map": "/forasoftChat/static/js/2.311df99b.chunk.js.map",
     "index.html": "/forasoftChat/index.html",
-    "precache-manifest.de7b70dae222330b77c9eb4ec2bd2191.js": "/forasoftChat/precache-manifest.de7b70dae222330b77c9eb4ec2bd2191.js",
+    "precache-manifest.f9e095758dc33316fd6fa9165945440e.js": "/forasoftChat/precache-manifest.f9e095758dc33316fd6fa9165945440e.js",
     "service-worker.js": "/forasoftChat/service-worker.js",
     "static/css/main.6834936d.chunk.css.map": "/forasoftChat/static/css/main.6834936d.chunk.css.map",
-    "static/js/2.55b6e3ee.chunk.js.LICENSE.txt": "/forasoftChat/static/js/2.55b6e3ee.chunk.js.LICENSE.txt"
+    "static/js/2.311df99b.chunk.js.LICENSE.txt": "/forasoftChat/static/js/2.311df99b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.fbbebdb5.js",
-    "static/js/2.55b6e3ee.chunk.js",
+    "static/js/2.311df99b.chunk.js",
     "static/css/main.6834936d.chunk.css",
-    "static/js/main.e227f6c3.chunk.js"
+    "static/js/main.a18fa900.chunk.js"
   ]
 }

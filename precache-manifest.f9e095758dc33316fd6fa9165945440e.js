@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cf3a9578836a11a1296a18f97285d439",
+    "revision": "61f4efa6f55a5e55f1cb649f95d50f07",
     "url": "/forasoftChat/index.html"
   },
   {
-    "revision": "15e368dc214445557d7a",
+    "revision": "cff8047f03b614af18ad",
     "url": "/forasoftChat/static/css/main.6834936d.chunk.css"
   },
   {
-    "revision": "946119c389d540b8a746",
-    "url": "/forasoftChat/static/js/2.55b6e3ee.chunk.js"
+    "revision": "73d69ca3daed28b67395",
+    "url": "/forasoftChat/static/js/2.311df99b.chunk.js"
   },
   {
     "revision": "bab979f0996c4f83a712fc8810462bad",
-    "url": "/forasoftChat/static/js/2.55b6e3ee.chunk.js.LICENSE.txt"
+    "url": "/forasoftChat/static/js/2.311df99b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "15e368dc214445557d7a",
-    "url": "/forasoftChat/static/js/main.e227f6c3.chunk.js"
+    "revision": "cff8047f03b614af18ad",
+    "url": "/forasoftChat/static/js/main.a18fa900.chunk.js"
   },
   {
     "revision": "e1f44750ad99ad8f6f50",
